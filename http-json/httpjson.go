@@ -3,15 +3,39 @@ package httpjson
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"net/http"
 	"net/mail"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Start entrypoint
 func Start() {
-	http.HandleFunc("/", CreateUser)
-	log.Println(http.ListenAndServe(":60001", nil))
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.Default()
+	r.GET("/", func(c *gin.Context) {
+		var user User
+		c.Bind(&user)
+
+		validationErr := validate(user)
+		if validationErr != nil {
+			c.JSON(200, Response{
+				Code:    500,
+				Message: validationErr.Error(),
+			})
+			return
+		}
+
+		user.ID = "1000000"
+		c.JSON(200, Response{
+			Code:    200,
+			Message: "OK",
+			User:    &user,
+		})
+	})
+	r.Run(":60001")
+	// http.HandleFunc("/", CreateUser)
+	// log.Println(http.ListenAndServe(":60001", nil))
 }
 
 // User type
