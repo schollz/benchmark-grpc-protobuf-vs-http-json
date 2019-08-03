@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/plutov/benchmark-grpc-protobuf-vs-http-json/http-json"
+	httpjson "github.com/schollz/benchmark-grpc-protobuf-vs-http-json/http-json"
 )
 
 func init() {
