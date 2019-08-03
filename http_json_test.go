@@ -38,7 +38,8 @@ func doPost(client *http.Client, b *testing.B) {
 	}
 
 	defer resp.Body.Close()
-
+	// bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	// fmt.Printf("[%s]\n", bodyBytes)
 	// We need to parse response to have a fair comparison as gRPC does it
 	var target httpjson.Response
 	decodeErr := json.NewDecoder(resp.Body).Decode(&target)

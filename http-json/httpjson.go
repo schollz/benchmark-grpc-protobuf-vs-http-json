@@ -12,8 +12,8 @@ import (
 // Start entrypoint
 func Start() {
 	gin.SetMode(gin.ReleaseMode)
-	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
+	r := gin.New()
+	r.POST("/", func(c *gin.Context) {
 		var user User
 		c.Bind(&user)
 
